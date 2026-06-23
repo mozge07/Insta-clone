@@ -1,0 +1,14 @@
+user schema = {
+    userName: string,
+    email: string,
+    password: string,
+    profileImg: string,
+    bio: string
+}
+
+post schema = {
+    caption: string,
+    img_url: string,
+    user: userId,
+    
+}
