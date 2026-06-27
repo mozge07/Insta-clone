@@ -1,8 +1,16 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Login from "./features/auth/pages/Login";
 import Register from "./features/auth/pages/Register";
 import Feed from "./features/posts/pages/Feed"
 import CreatePost from "./features/posts/pages/CreatePost";
+import { useContext } from "react";
+import { AuthContext } from "./features/auth/auth.context.jsx";
+
+function ProtectedRoute({ children }) {
+  const { user } = useContext(AuthContext);
+  if (!user) return <Navigate to="/login" replace />;
+  return children;
+}
 
 export const router = createBrowserRouter([
   {
@@ -15,11 +23,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Feed />
+    element: <ProtectedRoute><Feed /></ProtectedRoute>
   },
   {
     path: "/create-post",
-    element: <CreatePost />
+    element: <ProtectedRoute><CreatePost /></ProtectedRoute>
   }
 ])
 

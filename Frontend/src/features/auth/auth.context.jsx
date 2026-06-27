@@ -14,10 +14,11 @@ export function AuthProvider({ children }){
 
         try {
             const response = await login(username, password)
-            setuser (response.user)
-            //return response  // it print details of user in console
+            setuser(response.user)
+            return response
         } catch (error) {
             console.log(error);
+            throw error;
         } finally{
             setloading(false)
         }
