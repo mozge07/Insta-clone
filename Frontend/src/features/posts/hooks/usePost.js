@@ -14,9 +14,14 @@ export const usePost = () => {
 
   const handleGetFeed = async () => {
     setLoading(true);
-    const data = await getFeed();
-    setFeed(data.posts.reverse());
-    setLoading(false);
+    try {
+      const data = await getFeed();
+      setFeed(data.posts.reverse());
+    } catch (error) {
+      console.error("Failed to fetch feed:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCreatePost = async (imgFile, caption) => {
